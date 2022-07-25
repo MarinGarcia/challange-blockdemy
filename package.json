@@ -1,0 +1,27 @@
+{
+  "name": "challange-blockdemy",
+  "version": "1.0.0",
+  "description": "Rick and Morty GraphQL API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarinGarcia/challange-blockdemy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarinGarcia/challange-blockdemy/issues"
+  },
+  "homepage": "https://github.com/MarinGarcia/challange-blockdemy#readme",
+  "dependencies": {
+    "apollo-server-express": "^3.10.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "graphql": "^16.5.0",
+    "mongoose": "^6.4.6"
+  }
+}
