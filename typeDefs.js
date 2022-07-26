@@ -6,6 +6,7 @@ type Location {
   type: String
   dimension: String
   residents: [Character]
+  createdAt: String
 }
 
 type Episode {
@@ -41,6 +42,11 @@ type Character {
     results: [Episode]
   }
 
+  type customLocationsResult {
+    info: PageInfo
+    results: [Location]
+  }
+
   type PageInfo {
     next: Int
     pages: Int
@@ -53,6 +59,8 @@ type Character {
     character(id: ID!): Character
     episodes(page: Int): customEpisodesResult
     episode(id: ID): Episode
+    locations(page: Int): customLocationsResult
+    location(id: ID): Location
   }
 
   type Mutation {

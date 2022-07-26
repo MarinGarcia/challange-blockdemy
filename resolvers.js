@@ -43,7 +43,16 @@ const resolvers = {
     episode: async (_, { id }) => {
       const episode = await Episode.findById(id);
       return episode;
-    }
+    },
+    locations: async (_, { page }) => {
+      options.page = page;
+      const locations = await Location.paginate({}, options);
+      return formatResult(locations);
+    },
+    location: async (_, { id }) => {
+      const location = await Location.findById(id);
+      return location;
+    },
   },
   Character: {
     origin: async (character) => {
@@ -59,8 +68,8 @@ const resolvers = {
         .episode;
     },
     createdAt: async (character) => {
-      return  new Date(character.createdAt).toISOString();
-    }
+      return new Date(character.createdAt).toISOString();
+    },
   },
   Episode: {
     characters: async (episode) => {
@@ -69,7 +78,16 @@ const resolvers = {
     },
     createdAt: async (episode) => {
       return new Date(episode.createdAt).toISOString();
-    }
+    },
+  },
+  Location: {
+    residents: async (location) => {
+      return (await location.populate({ path: "residents", model: Character }))
+        .residents;
+    },
+    createdAt: async (location) => {
+      return new Date(location.createdAt).toISOString();
+    },
   },
   Mutation: {
     createCharacter: async (_, args) => {
