@@ -26,10 +26,24 @@ type Character {
     origin: Location
     location: Location
     episode: [Episode]
+    createdAt: String
+  }
+
+  type customCharacterResult {
+    info: PageInfo
+    results: [Character]
+  }
+
+  type PageInfo {
+    next: Int
+    pages: Int
+    count: Int
+    prev: Int
   }
 
   type Query {
-    characters: [Character]
+    characters(page: Int): customCharacterResult
+    character(id: ID!): Character
   }
 
   type Mutation {
