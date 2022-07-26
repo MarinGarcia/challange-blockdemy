@@ -10,9 +10,11 @@ type Location {
 
 type Episode {
   id: ID
+  name: String
   air_date: String
   episode: String
   characters: [Character]
+  createdAt: String
 }
 
 type Character {
@@ -34,6 +36,11 @@ type Character {
     results: [Character]
   }
 
+  type customEpisodesResult {
+    info: PageInfo
+    results: [Episode]
+  }
+
   type PageInfo {
     next: Int
     pages: Int
@@ -44,6 +51,8 @@ type Character {
   type Query {
     characters(page: Int): customCharacterResult
     character(id: ID!): Character
+    episodes(page: Int): customEpisodesResult
+    episode(id: ID): Episode
   }
 
   type Mutation {

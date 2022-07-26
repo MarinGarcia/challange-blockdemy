@@ -12,24 +12,37 @@ const options = {
   },
 };
 
+const formatResult = (model) => {
+  return {
+    info: {
+      next: model.next,
+      pages: model.pages,
+      count: model.count,
+      prev: model.prev,
+    },
+    results: model.docs,
+  };
+};
+
 const resolvers = {
   Query: {
     characters: async (_, { page }) => {
       options.page = page;
       const characters = await Character.paginate({}, options);
-      return {
-        info: {
-          next: characters.next,
-          pages: characters.pages,
-          count: characters.count,
-          prev: characters.prev
-        },
-        results: characters.docs
-      };
+      return formatResult(characters);
     },
     character: async (_, { id }) => {
       const character = await Character.findById(id);
       return character;
+    },
+    episodes: async (_, { page }) => {
+      options.page = page;
+      const episodes = await Episode.paginate({}, options);
+      return formatResult(episodes);
+    },
+    episode: async (_, { id }) => {
+      const episode = await Episode.findById(id);
+      return episode;
     }
   },
   Character: {
@@ -46,7 +59,16 @@ const resolvers = {
         .episode;
     },
     createdAt: async (character) => {
-      return new Date(character.createdAt).toISOString();
+      return  new Date(character.createdAt).toISOString();
+    }
+  },
+  Episode: {
+    characters: async (episode) => {
+      return (await episode.populate({ path: "characters", model: Character }))
+        .characters;
+    },
+    createdAt: async (episode) => {
+      return new Date(episode.createdAt).toISOString();
     }
   },
   Mutation: {
