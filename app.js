@@ -2,8 +2,11 @@ const express = require('express');
 const { ApolloServer } =  require('apollo-server-express');
 const { typeDefs } =  require('./typeDefs');
 const { resolvers } = require('./resolvers');
+const { connectDB } = require('./db/connect');
 
 const app = express();
+
+connectDB();
 
 module.exports = app;
 
