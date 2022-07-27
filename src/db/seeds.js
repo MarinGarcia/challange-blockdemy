@@ -1,11 +1,5 @@
-require('dotenv').config()
 const seeder = require('mongoose-seed');
-
-const user = process.env.DB_USER
-const password = process.env.DB_PASSWORD
-const db = process.env.DB_NAME
-
-const URI = `mongodb+srv://${user}:${password}@${db}/?retryWrites=true&w=majority`
+const URI = require('../../config/db');
 
 const locationsData =  require('./resources/locations');
 const episodesData = require('./resources/episodes');
@@ -17,9 +11,9 @@ seeder.connect(URI, () => {
   require('../models/Character');
 
   seeder.loadModels([
-    './models/Location.js',
-    './models/Episode.js',
-    './models/Character.js'
+    './src/models/Location.js',
+    './src/models/Episode.js',
+    './src/models/Character.js'
   ]);
 
   seeder.clearModels(['Location', 'Episode', 'Character'], () => {
